@@ -1,0 +1,24 @@
+create table Genres(
+	id serial primary key,
+	name varchar(30)
+);
+
+create table Authorslist(
+	id serial primary key,
+	name varchar(30) not null unique,
+	genreid integer references Genres(id)
+);
+
+create table Albums(
+	id serial primary key,
+	name varchar(30) not null unique,
+	realease date,
+	authorid integer references AuthorsList(id)
+);
+
+create table Tracks(
+	id serial primary key,
+	name varchar(30) not null unique,
+	time integer,
+	album_id integer references Albums(id)
+);
