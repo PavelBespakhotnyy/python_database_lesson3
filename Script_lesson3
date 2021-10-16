@@ -1,24 +1,36 @@
-create table Genres(
+create table if not exists Genres(
 	id serial primary key,
 	name varchar(30)
 );
 
-create table Authorslist(
+create table if not exists Authorslist(
 	id serial primary key,
-	name varchar(30) not null unique,
-	genreid integer references Genres(id)
+	name varchar(30) not null unique
 );
 
-create table Albums(
+create table if not exists Albums(
 	id serial primary key,
 	name varchar(30) not null unique,
-	realease date,
-	authorid integer references AuthorsList(id)
+	realease date
 );
 
-create table Tracks(
+create table if not exists Tracks(
 	id serial primary key,
 	name varchar(30) not null unique,
-	time integer,
+	time integer
+);
+
+create table if not exists Authorslist_albums(
+	author_id integer references Authorslist(id),
 	album_id integer references Albums(id)
+);
+
+create table if not exists Albums_tracks(
+	track_id integer references Tracks(id),
+	album_id integer references Albums(id)
+);
+
+create table if not exists Authorslist_Genres(
+	genre_id integer references Genres(id),
+	author_id integer references Authorslist(id)
 );
