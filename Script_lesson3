@@ -31,8 +31,12 @@ create table if not exists Authorslist_Genres(
 );
 
 create table if not exists Collections(
-	tracks_id integer references Tracks(id),
-	author_id integer references Authorslist(id),
+	id serial primary key,
 	name varchar(50) not null,
 	realease date
+);
+
+create table if not exists Collections_tracks(
+    Collections_id integer references Collections(id),
+	Tracks_id integer references Tracks(id)
 );
