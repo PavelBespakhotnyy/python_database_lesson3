@@ -16,31 +16,31 @@ create table if not exists Albums(
 
 create table if not exists Tracks(
     	id serial primary key,
-	id serial not null references Albums(id),
+	album_id integer references Albums(id),
 	name varchar(30) not null unique,
 	time integer
 );
 
 create table if not exists Authorslist_albums(
-    	id serial primary key (authorslistid, albumsid),
+    	id serial primary key (Authorslist(id), albums(id)),
 	author_id integer references Authorslist(id),
 	album_id integer references Albums(id)
 );
 
 create table if not exists Authorslist_Genres(
-    	id serial primary key (authorslistid, genresid),
+    	id serial primary key (Authorslist(id), Genres(id)),
 	genre_id integer references Genres(id),
 	author_id integer references Authorslist(id)
 );
 
 create table if not exists Collections(
-	tracks_id integer references Tracks(id),
+	id serial primary key,
 	name varchar(50) not null,
 	realease date
 );
 
 create table if not exists Collections_Tracks(
-    	id serial primary key (collectionsid, tracksid),
+    	id serial primary key (Collections(id), Tracks(id)),
     	collections_id integer references Collections(id),
 	tracks_id integer references Tracks(id)
 );
